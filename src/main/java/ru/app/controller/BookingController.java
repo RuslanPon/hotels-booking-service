@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.app.model.Order;
+import ru.app.model.dto.OrderDTO;
 import ru.app.service.AbstractBookingService;
+import ru.app.service.IBookingService;
 
 import java.util.List;
 
@@ -16,15 +18,15 @@ import java.util.List;
 @RequestMapping("/orders")
 @RequiredArgsConstructor
 class BookingController {
-    private final AbstractBookingService bookingService;
+    private final IBookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order newOrder) {
-        return ResponseEntity.ok(bookingService.processOrder(newOrder));
+    public OrderDTO createOrder(@RequestBody Order newOrder) {
+        return bookingService.processOrder(newOrder);
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders() {
-        return ResponseEntity.ok(bookingService.getAllOrders());
+    public List<OrderDTO> getOrders() {
+        return bookingService.getAllOrders();
     }
 }

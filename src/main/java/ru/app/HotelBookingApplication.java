@@ -13,14 +13,4 @@ public class HotelBookingApplication {
     public static void main(String[] args) {
         SpringApplication.run(HotelBookingApplication.class, args);
     }
-
-    @Bean
-    public OrderRepository orderRepository() {
-        return new InMemoryOrderRepository();
-    }
-
-    @Bean
-    public RoomAvailabilityRepository roomAvailabilityRepository() {
-        return new InMemoryRoomAvailabilityRepository();
-    }
 }
