@@ -2,6 +2,7 @@ package ru.app.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Version;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public class Order {
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime to;
+
+    @Version
+    private Long version;
 
     public List<LocalDate> getBookingDates() {
         return Stream.iterate(from.toLocalDate(), date -> date.plusDays(1))

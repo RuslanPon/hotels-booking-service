@@ -1,22 +1,17 @@
 package ru.app.service;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 import ru.app.model.Order;
 import ru.app.model.dto.OrderDTO;
 import ru.app.repository.OrderRepository;
 import ru.app.repository.RoomAvailabilityRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractBookingService implements IBookingService {
+public abstract class AbstractBookingService implements BookingService {
     protected final RoomAvailabilityRepository roomAvailabilityRepository;
     protected final OrderRepository orderRepository;
     protected final EmailService emailService;
@@ -49,7 +44,6 @@ public abstract class AbstractBookingService implements IBookingService {
         orderRepository.save(order);
     }
 
-    @Async
     @Override
     public void sendConfirmationEmail(Order order) {
         emailService.sendConfirmationEmail(order);
@@ -57,7 +51,7 @@ public abstract class AbstractBookingService implements IBookingService {
     }
 
     @Override
-    public List<OrderDTO> getAllOrders() {
+    public List<OrderDTO> getAllOrders() { //В идеале затащить MapStruct библиотечку.
         return orderRepository.findAll().stream()
                 .map(order -> OrderDTO.builder()
                         .hotelId(order.getHotelId())

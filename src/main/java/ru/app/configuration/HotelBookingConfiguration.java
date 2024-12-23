@@ -13,7 +13,8 @@ import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
-public class RepositoryConfiguration {
+public class HotelBookingConfiguration {
+    
     @Bean
     public OrderRepository orderRepository() {
         return new InMemoryOrderRepository();
